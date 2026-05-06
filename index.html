@@ -1,362 +1,725 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="6qcwYwzA6RaAwLVA6G3HBTprB8Bdw4A16uZCF5e9Ar8" />
-    <title>The Helix Sanatana Ecosystem — Decolonizing Global Knowledge</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Cinzel for elegant headers, Plus Jakarta Sans for premium UI readability -->
+    <title>HELIOS | The Civilizational Nexus — Kallol Chakrabarti</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for beautiful icon arrays -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        darkBg: '#090A0F',
-                        darkCard: 'rgba(18, 20, 29, 0.7)',
-                        saffron: '#FF7300',
-                        goldHighlight: '#FFD700',
-                        quantumCyan: '#00F5FF',
-                        mysticPurple: '#8A2BE2',
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@200;300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #090A0F;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 115, 0, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 40%);
-            background-attachment: fixed;
+        :root {
+            --void: #050508;
+            --abyss: #0a0a12;
+            --deep: #0f0f1a;
+            --surface: #161622;
+            --raised: #1e1e2e;
+            --border: #2a2a3e;
+            --border-hover: #3a3a52;
+            --text-primary: #e8e4dc;
+            --text-secondary: #a09a8e;
+            --text-tertiary: #6b6560;
+            --accent-gold: #c9a84c;
+            --accent-gold-dim: #8a7340;
+            --accent-gold-glow: rgba(201, 168, 76, 0.15);
+            --glow-subtle: 0 0 40px rgba(201, 168, 76, 0.04);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-dramatic: cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .glass-panel {
-            background: rgba(15, 18, 27, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border) var(--abyss); }
+        body { font-family: 'Inter', sans-serif; background: var(--void); color: var(--text-primary); overflow-x: hidden; line-height: 1.6; }
+        ::selection { background: var(--accent-gold-glow); color: var(--accent-gold); }
+        #cosmos-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+        .cursor-glow { position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%); pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: opacity 0.3s ease; mix-blend-mode: screen; }
+        .nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.5s var(--transition-smooth); }
+        .nav.scrolled { background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem 3rem; }
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .nav-brand .brand-symbol { width: 36px; height: 36px; border: 1.5px solid var(--accent-gold-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--accent-gold); position: relative; overflow: hidden; }
+        .nav-brand .brand-symbol::before { content: ''; position: absolute; inset: 0; background: var(--accent-gold-glow); opacity: 0; transition: opacity 0.4s ease; }
+        .nav-brand:hover .brand-symbol::before { opacity: 1; }
+        .nav-brand .brand-text { font-family: 'Cinzel', serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.15em; color: var(--text-primary); }
+        .nav-brand .brand-sub { font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--text-tertiary); text-transform: uppercase; margin-top: 2px; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; position: relative; padding: 0.25rem 0; transition: color 0.3s ease; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--accent-gold); transition: width 0.4s var(--transition-dramatic); }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 2; overflow: hidden; }
+        .hero-content { text-align: center; max-width: 900px; padding: 0 2rem; position: relative; }
+        .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; color: var(--accent-gold-dim); text-transform: uppercase; margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s var(--transition-dramatic) 0.5s forwards; }
+        .hero-title { font-family: 'Cinzel', serif; font-weight: 400; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        .hero-title .line { display: block; opacity: 0; transform: translateY(30px); }
+        .hero-title .line:nth-child(1) { animation: fadeUp 1.2s var(--transition-dramatic) 0.8s forwards; }
+        .hero-title .line:nth-child(2) { animation: fadeUp 1.2s var(--transition-dramatic) 1.0s forwards; }
+        .hero-title .line:nth-child(3) { animation: fadeUp 1.2s var(--transition-dramatic) 1.2s forwards; }
+        .hero-title .accent { color: var(--accent-gold); font-weight: 600; }
+        .hero-sanskrit { font-family: 'Noto Sans Devanagari', sans-serif; font-size: clamp(1.2rem, 3vw, 2rem); color: var(--accent-gold-dim); margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s var(--transition-dramatic) 1.5s forwards; letter-spacing: 0.1em; }
+        .hero-description { font-size: 1.05rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem; line-height: 1.8; opacity: 0; animation: fadeUp 1s var(--transition-dramatic) 1.8s forwards; }
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s var(--transition-dramatic) 2.1s forwards; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 4px; cursor: pointer; transition: all 0.4s var(--transition-smooth); position: relative; overflow: hidden; }
+        .btn-primary { background: var(--accent-gold); color: var(--void); border: none; }
+        .btn-primary:hover { background: #d4b55a; box-shadow: 0 0 40px rgba(201, 168, 76, 0.3); transform: translateY(-2px); }
+        .btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--accent-gold-dim); color: var(--accent-gold); background: var(--accent-gold-glow); }
+        .scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 1s var(--transition-dramatic) 2.5s forwards; }
+        .scroll-indicator span { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--text-tertiary); text-transform: uppercase; }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--border), transparent); position: relative; overflow: hidden; }
+        .scroll-line::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: var(--accent-gold); animation: scrollPulse 2s ease-in-out infinite; }
+        section { position: relative; z-index: 2; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; color: var(--accent-gold-dim); text-transform: uppercase; margin-bottom: 1rem; }
+        .section-title { font-family: 'Cinzel', serif; font-weight: 400; font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1rem; }
+        .section-subtitle { color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-size: 1rem; }
+        .section-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-gold-dim), transparent); margin: 0 auto 2rem; }
+        .manifesto-strip { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 0; overflow: hidden; position: relative; }
+        .manifesto-track { display: flex; gap: 4rem; animation: scrollText 30s linear infinite; white-space: nowrap; }
+        .manifesto-item { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text-tertiary); display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+        .manifesto-item::before { content: '◆'; color: var(--accent-gold-dim); font-size: 0.5rem; }
+        .domains { padding: 8rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .domains-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; position: relative; overflow: hidden; cursor: pointer; transition: all 0.5s var(--transition-smooth); text-decoration: none; color: inherit; display: block; }
+        .domain-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-gold-dim), transparent); opacity: 0; transition: opacity 0.5s ease; }
+        .domain-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--glow-subtle), 0 20px 60px rgba(0,0,0,0.4); }
+        .domain-card:hover::before { opacity: 1; }
+        .domain-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent-gold-dim); letter-spacing: 0.1em; margin-bottom: 1rem; }
+        .domain-icon { font-size: 1.8rem; margin-bottom: 1.25rem; display: block; }
+        .domain-title { font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 500; margin-bottom: 0.75rem; color: var(--text-primary); }
+        .domain-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+        .domain-meta { display: flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-tertiary); letter-spacing: 0.05em; }
+        .domain-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent-sage); }
+        .domain-card[data-status="live"] .dot { background: #4a9a5a; box-shadow: 0 0 8px rgba(74, 154, 90, 0.4); }
+        .philosophy { padding: 8rem 2rem; background: linear-gradient(180deg, var(--void) 0%, var(--abyss) 50%, var(--void) 100%); }
+        .philosophy-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+        .philosophy-visual { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+        .philosophy-visual .orbit-ring { position: absolute; border: 1px solid var(--border); border-radius: 50%; animation: rotate 60s linear infinite; }
+        .philosophy-visual .orbit-ring:nth-child(1) { width: 100%; height: 100%; }
+        .philosophy-visual .orbit-ring:nth-child(2) { width: 75%; height: 75%; animation-direction: reverse; animation-duration: 45s; }
+        .philosophy-visual .orbit-ring:nth-child(3) { width: 50%; height: 50%; animation-duration: 30s; }
+        .philosophy-visual .orbit-node { position: absolute; width: 8px; height: 8px; background: var(--accent-gold-dim); border-radius: 50%; box-shadow: 0 0 12px rgba(201, 168, 76, 0.3); }
+        .philosophy-visual .center-symbol { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 4rem; color: var(--accent-gold); text-shadow: 0 0 60px rgba(201, 168, 76, 0.2); }
+        .philosophy-content h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400; margin-bottom: 1.5rem; line-height: 1.2; }
+        .philosophy-content p { color: var(--text-secondary); font-size: 1rem; line-height: 1.9; margin-bottom: 1.5rem; }
+        .principle-list { list-style: none; margin-top: 2rem; }
+        .principle-list li { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .principle-list li:last-child { border-bottom: none; }
+        .principle-list .principle-sanskrit { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 1.1rem; color: var(--accent-gold-dim); min-width: 120px; flex-shrink: 0; }
+        .principle-list .principle-meaning { font-size: 0.9rem; color: var(--text-secondary); }
+        .reckoners { padding: 8rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .reckoners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .reckoner-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: all 0.4s var(--transition-smooth); cursor: pointer; position: relative; overflow: hidden; }
+        .reckoner-item::after { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent-gold); opacity: 0; transition: opacity 0.3s ease; }
+        .reckoner-item:hover { border-color: var(--border-hover); transform: translateX(4px); background: var(--raised); }
+        .reckoner-item:hover::after { opacity: 1; }
+        .reckoner-tag { display: inline-block; padding: 0.2rem 0.6rem; background: var(--raised); border: 1px solid var(--border); border-radius: 4px; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.75rem; }
+        .reckoner-tag.featured { border-color: var(--accent-gold-dim); color: var(--accent-gold); }
+        .reckoner-tag.new { border-color: #5a7a6a; color: #6a9a7a; }
+        .reckoner-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .reckoner-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+        .stats-strip { padding: 5rem 2rem; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; text-align: center; }
+        .stat-item .stat-number { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 600; color: var(--accent-gold); line-height: 1; margin-bottom: 0.5rem; }
+        .stat-item .stat-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); }
+        .sanatana { padding: 8rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .sanatana-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .sanatana-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.5s var(--transition-smooth); }
+        .sanatana-card:hover { border-color: var(--accent-gold-dim); box-shadow: var(--glow-subtle); transform: translateY(-4px); }
+        .sanatana-card .card-icon { width: 60px; height: 60px; margin: 0 auto 1.5rem; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: var(--raised); }
+        .sanatana-card h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 0.75rem; }
+        .sanatana-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+        .timeline { padding: 8rem 2rem; background: linear-gradient(180deg, var(--void) 0%, var(--abyss) 100%); }
+        .timeline-inner { max-width: 1000px; margin: 0 auto; position: relative; }
+        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--border), var(--border), transparent); transform: translateX(-50%); }
+        .timeline-item { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; position: relative; }
+        .timeline-item:nth-child(even) .timeline-content { grid-column: 2; }
+        .timeline-item:nth-child(even) .timeline-year { grid-column: 1; text-align: right; }
+        .timeline-dot { position: absolute; left: 50%; top: 0; width: 12px; height: 12px; background: var(--surface); border: 2px solid var(--accent-gold-dim); border-radius: 50%; transform: translateX(-50%); z-index: 2; }
+        .timeline-year { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--accent-gold-dim); }
+        .timeline-content h4 { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .timeline-content p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+        .quote-section { padding: 8rem 2rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .quote-section blockquote { font-family: 'Cinzel', serif; font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 400; line-height: 1.6; color: var(--text-primary); position: relative; padding: 2rem 0; }
+        .quote-section blockquote::before, .quote-section blockquote::after { content: '"'; font-size: 4rem; color: var(--accent-gold-dim); opacity: 0.3; position: absolute; line-height: 1; }
+        .quote-section blockquote::before { top: -1rem; left: -2rem; }
+        .quote-section blockquote::after { bottom: -2rem; right: -2rem; }
+        .quote-section cite { display: block; margin-top: 2rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-tertiary); font-style: normal; letter-spacing: 0.1em; }
+        .footer { background: var(--abyss); border-top: 1px solid var(--border); padding: 5rem 2rem 2rem; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+        .footer-brand .footer-symbol { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .footer-brand p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; max-width: 300px; }
+        .footer-col h4 { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 1.5rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.75rem; }
+        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.3s ease; }
+        .footer-col ul li a:hover { color: var(--accent-gold); }
+        .footer-bottom { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { font-size: 0.75rem; color: var(--text-tertiary); }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { color: var(--text-tertiary); text-decoration: none; font-size: 0.75rem; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--accent-gold); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scrollText { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes scrollPulse { 0% { top: -100%; } 50% { top: 100%; } 100% { top: 100%; } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s var(--transition-dramatic); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) {
+            .philosophy-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .philosophy-visual { max-width: 400px; margin: 0 auto; }
+            .sanatana-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline-item { grid-template-columns: 1fr; gap: 1rem; }
+            .timeline-item:nth-child(even) .timeline-content, .timeline-item:nth-child(even) .timeline-year { grid-column: 1; text-align: left; }
+            .timeline-line { left: 0; }
+            .timeline-dot { left: 0; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
         }
-        .glow-hover-gold:hover {
-            box-shadow: 0 0 25px rgba(255, 115, 0, 0.3);
-            border-color: rgba(255, 115, 0, 0.5);
-            transform: translateY(-4px);
-        }
-        .glow-hover-cyan:hover {
-            box-shadow: 0 0 25px rgba(0, 245, 255, 0.3);
-            border-color: rgba(0, 245, 255, 0.5);
-            transform: translateY(-4px);
-        }
-        .text-gradient-gold {
-            background: linear-gradient(135deg, #FFF 30%, #FFD700 70%, #FF7300 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-gradient-saffron {
-            background: linear-gradient(135deg, #FF9933 0%, #FF5500 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-gradient-cyan {
-            background: linear-gradient(135deg, #00F5FF 0%, #0081A7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @media (max-width: 768px) {
+            .nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .quote-section blockquote::before, .quote-section blockquote::after { display: none; }
+            .domains-grid { grid-template-columns: 1fr; }
+            .reckoners-grid { grid-template-columns: 1fr; }
         }
     </style>
+<base target="_blank">
 </head>
-<body class="text-gray-300 font-sans min-h-screen flex flex-col selection:bg-saffron selection:text-black">
+<body>
+    <canvas id="cosmos-canvas"></canvas>
+    <div class="noise-overlay"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Header Section -->
-    <header class="relative overflow-hidden pt-16 pb-12 border-b border-gray-900 glass-panel">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none opacity-20">
-            <div class="absolute top-0 right-1/4 w-96 h-96 bg-saffron rounded-full filter blur-[120px]"></div>
-            <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-quantumCyan rounded-full filter blur-[120px]"></div>
-        </div>
-        
-        <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-saffron/30 bg-saffron/10 text-saffron text-xs font-semibold uppercase tracking-widest mb-6">
-                <i class="fa-solid fa-dharmachakra animate-spin-slow"></i> Decolonial Metatheory & Epistemological Stack
+    <nav class="nav" id="navbar">
+        <a href="#" class="nav-brand">
+            <div class="brand-symbol">ॐ</div>
+            <div>
+                <div class="brand-text">HELIOS</div>
+                <div class="brand-sub">Civilizational Nexus</div>
             </div>
-            <h1 class="font-cinzel text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6">
-                THE HELIX <span class="text-gradient-gold">SANATANA</span> ECOSYSTEM
+        </a>
+        <ul class="nav-links">
+            <li><a href="#domains">Domains</a></li>
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#reckoners">Reckoners</a></li>
+            <li><a href="#sanatana">Dharma</a></li>
+            <li><a href="#timeline">Journey</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-eyebrow">Civilizational Intelligence Architecture for Bharat 2047</div>
+            <h1 class="hero-title">
+                <span class="line">Where Ancient Wisdom</span>
+                <span class="line">Meets <span class="accent">Future Intelligence</span></span>
+                <span class="line">For Nation Building</span>
             </h1>
-            <p class="max-w-3xl mx-auto text-gray-400 text-lg md:text-xl leading-relaxed mb-4">
-                A Living Library decolonizing modern global paradigms by applying indigenous Indian frameworks to complex contemporary systems of sustainability, law, and quantum metaphysics.
+            <div class="hero-sanskrit">वसुधैव कुटुम्बकम्</div>
+            <p class="hero-description">
+                A unified digital ecosystem synthesizing Sanatana Dharma, constitutional thought, 
+                AI governance, and civilizational research — architected by independent researcher 
+                Kallol Chakrabarti for a resurgent India.
             </p>
-            <p class="text-sm font-semibold tracking-wider text-quantumCyan/90 uppercase border-t border-gray-800 pt-4 inline-block">
-                <i class="fa-solid fa-circle-nodes mr-1"></i> A Cross-Domain Integration of Rhetoric, Software Engineering, and Dharmic Philosophy
-            </p>
+            <div class="hero-cta">
+                <a href="#domains" class="btn btn-primary">Explore the Ecosystem</a>
+                <a href="https://helixoriginator.github.io/kallol-ready-reckoner/" target="_blank" class="btn btn-ghost">View Ready Reckoners</a>
+            </div>
         </div>
-    </header>
-
-    <!-- Main Strategic Value Cards Section -->
-    <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <!-- Pillar 1: Sanatan Dharma -->
-        <div class="glass-panel rounded-2xl p-8 relative overflow-hidden group border-t-4 border-t-saffron">
-            <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                <i class="fa-solid fa-om text-8xl text-saffron"></i>
-            </div>
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-lg bg-saffron/10 border border-saffron/30 flex items-center justify-center text-saffron text-2xl">
-                    <i class="fa-solid fa-yin-yang"></i>
-                </div>
-                <h3 class="font-cinzel text-xl font-bold text-white tracking-wide">Sanatan Dharma Contribution</h3>
-            </div>
-            <h4 class="text-saffron font-semibold mb-3">Epistemological & Civilizational Revival</h4>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                Transitions Sanatana Dharma from simple retrospective archiving to an active, dynamic, and intellectual problem-solving framework. By translating sacred concepts into modern systems architecture, it decolonizes minds, reinstating Indian traditional systems as global templates for sustainability and societal balance.
-            </p>
-            <ul class="text-xs text-gray-500 space-y-2 border-t border-gray-800/60 pt-4">
-                <li><i class="fa-solid fa-check text-saffron mr-2"></i>Removes Western colonial biases from Dharmic scriptures</li>
-                <li><i class="fa-solid fa-check text-saffron mr-2"></i>Applies traditional Nyaya and Mimamsa logic systematically</li>
-            </ul>
-        </div>
-
-        <!-- Pillar 2: Central Government -->
-        <div class="glass-panel rounded-2xl p-8 relative overflow-hidden group border-t-4 border-t-quantumCyan">
-            <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                <i class="fa-solid fa-landmark text-8xl text-quantumCyan"></i>
-            </div>
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-lg bg-quantumCyan/10 border border-quantumCyan/30 flex items-center justify-center text-quantumCyan text-2xl">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-                <h3 class="font-cinzel text-xl font-bold text-white tracking-wide">Central Govt Utility</h3>
-            </div>
-            <h4 class="text-quantumCyan font-semibold mb-3">Viksit Bharat Policy Blueprints</h4>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                Serves as a strategic intellectual resource for policy design, soft-power projections, and narrative-building. It aligns with state initiatives to decolonize Indian jurisprudence, integrate native educational pedagogy, and establish indigenous cybernetic-governance frameworks based on Rajadharma.
-            </p>
-            <ul class="text-xs text-gray-500 space-y-2 border-t border-gray-800/60 pt-4">
-                <li><i class="fa-solid fa-check text-quantumCyan mr-2"></i>Strategic tools for policy, international relations, & soft power</li>
-                <li><i class="fa-solid fa-check text-quantumCyan mr-2"></i>Architectures aligning Indian bureaucracy with indigenous roots</li>
-            </ul>
-        </div>
-
-        <!-- Pillar 3: Why it is Unique -->
-        <div class="glass-panel rounded-2xl p-8 relative overflow-hidden group border-t-4 border-t-goldHighlight">
-            <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                <i class="fa-solid fa-bolt text-8xl text-goldHighlight"></i>
-            </div>
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-lg bg-goldHighlight/10 border border-goldHighlight/30 flex items-center justify-center text-goldHighlight text-2xl">
-                    <i class="fa-solid fa-dna"></i>
-                </div>
-                <h3 class="font-cinzel text-xl font-bold text-white tracking-wide">Why It is Unique</h3>
-            </div>
-            <h4 class="text-goldHighlight font-semibold mb-3">Synthesizing Code, Rhetoric & Spirit</h4>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                This repository structure is not merely a static digital archive; it represents a cross-disciplinary fusion. It links professional software systems thinking and critical rhetorical analysis with a deep personal realization of Vedic truths, creating structured, scalable, and hyper-practical codebases for the modern digital age.
-            </p>
-            <ul class="text-xs text-gray-500 space-y-2 border-t border-gray-800/60 pt-4">
-                <li><i class="fa-solid fa-check text-goldHighlight mr-2"></i>Translates dynamic metaphysics into computational architectures</li>
-                <li><i class="fa-solid fa-check text-goldHighlight mr-2"></i>Converts abstract philosophy into functional civilizational tools</li>
-            </ul>
-        </div>
-
-    </section>
-
-    <!-- Interactive Repository Grid Section -->
-    <section class="max-w-7xl mx-auto px-6 py-12 flex-grow">
-        <div class="text-center mb-16">
-            <h2 class="font-cinzel text-3xl md:text-4xl font-bold text-white tracking-wider mb-4">
-                THE DIGITAL LIVING LIBRARIES
-            </h2>
-            <div class="w-24 h-1 bg-gradient-to-r from-saffron to-quantumCyan mx-auto mb-4"></div>
-            <p class="text-gray-400 max-w-xl mx-auto text-sm">
-                Explore the eight fundamental pillars built as digital repositories. Each acts as a strategic nodal point in the decolonial knowledge pipeline.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            <!-- Card 1: Vedas Insights -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-gold">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-saffron text-3xl"><i class="fa-solid fa-scroll"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Philosophy</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Vedas Insights, Wisdom & Philosophy</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        An exquisite deep dive exploring Vedic epistemology, translating pure non-dual metaphysics into frameworks actionable for modern ethics and global logic structures.
-                    </p>
-                </div>
-                <a href="https://helixoriginator.github.io/vedas-insights-wisdom-and-philosophy/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-saffron/10 to-saffron/20 hover:from-saffron hover:to-saffron hover:text-black border border-saffron/30 hover:border-transparent text-saffron text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 2: Kallol Research Repositories -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-cyan">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-quantumCyan text-3xl"><i class="fa-solid fa-cubes"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Core Hub</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Kallol Research Repositories</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        The centralized structural nexus hosting multi-disciplinary research assets. Bridges professional rhetoric with structured software system philosophies.
-                    </p>
-                </div>
-                <a href="https://kallol-research-repositories.netlify.app/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-quantumCyan/10 to-quantumCyan/20 hover:from-quantumCyan hover:to-quantumCyan hover:text-black border border-quantumCyan/30 hover:border-transparent text-quantumCyan text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 3: Helix Dharma Governance Stack -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-gold">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-saffron text-3xl"><i class="fa-solid fa-landmark-flag"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Governance</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Helix Dharma Governance Stack</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        A robust, layered structural stack designed to translate traditional concepts of Rajadharma and civil duties into frameworks for modern Indian statecraft.
-                    </p>
-                </div>
-                <a href="https://helixoriginator.github.io/helix-dharma-governance-stack/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-saffron/10 to-saffron/20 hover:from-saffron hover:to-saffron hover:text-black border border-saffron/30 hover:border-transparent text-saffron text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 4: Quantum Dharma Governance -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-cyan">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-quantumCyan text-3xl"><i class="fa-solid fa-atom"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Quantum-Tech</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Quantum Dharma Governance</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        A revolutionary synthesis mapping non-dual quantum mechanics and observer theories directly onto complex systems of computational civic governance.
-                    </p>
-                </div>
-                <a href="https://helixoriginator.github.io/quantum-dharma-governance/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-quantumCyan/10 to-quantumCyan/20 hover:from-quantumCyan hover:to-quantumCyan hover:text-black border border-quantumCyan/30 hover:border-transparent text-quantumCyan text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 5: Sanatana Civilization Stack -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-gold">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-saffron text-3xl"><i class="fa-solid fa-layer-group"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Civilization</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Sanatana Civilization Stack</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        An operational systems design blueprint built to secure, nurture, and optimize Sanatana civilization across ecological, technological, and cognitive vectors.
-                    </p>
-                </div>
-                <a href="https://helixoriginator.github.io/sanatana-civilization-stack/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-saffron/10 to-saffron/20 hover:from-saffron hover:to-saffron hover:text-black border border-saffron/30 hover:border-transparent text-saffron text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 6: Bengal-Bharat Synergy -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-cyan">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-quantumCyan text-3xl"><i class="fa-solid fa-handshake-angle"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Socio-Culture</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Bengal-Bharat Synergy</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        An initiative restoring the critical intellectual, spiritual, and geopolitical feedback loop between the state of Bengal and the absolute core of Bharat's civilizational consciousness.
-                    </p>
-                </div>
-                <a href="https://bengal-bharat-synergy.netlify.app/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-quantumCyan/10 to-quantumCyan/20 hover:from-quantumCyan hover:to-quantumCyan hover:text-black border border-quantumCyan/30 hover:border-transparent text-quantumCyan text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 7: Sanatan Vidya Kendra -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-gold">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-saffron text-3xl"><i class="fa-solid fa-book-open-reader"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">Education</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Sanatan Vidya Kendra</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        An educational pipeline designed to resurrect structural Gurukul-style rigor, customized for highly demanding 21st-century modern domains and multi-disciplinary thinking.
-                    </p>
-                </div>
-                <a href="https://sanatan-vidya-kendra.netlify.app/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-saffron/10 to-saffron/20 hover:from-saffron hover:to-saffron hover:text-black border border-saffron/30 hover:border-transparent text-saffron text-sm font-semibold transition-all duration-300">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Card 8: Bengal Renaissance -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col justify-between transition-all duration-300 glow-hover-cyan">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-quantumCyan text-3xl"><i class="fa-solid fa-synagogue"></i></span>
-                        <span class="text-[10px] text-gray-500 tracking-widest uppercase border border-gray-800 px-2 py-0.5 rounded">History & Future</span>
-                    </div>
-                    <h3 class="font-cinzel text-lg font-bold text-white mb-2">Bengal Renaissance</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
-                        Tracing, assessing, and reigniting the powerful legacy of Bengal's renaissance. Reclaiming scientific mysticism, literary rigor, and the spirit of patriotic resurgence.
-                    </p>
-                </div>
-                <a href="https://bengal-renaissance.netlify.app/" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2 px-4 rounded bg-gradient-to-r from-quantumCyan/10 to-quantumCyan/20 hover:from-quantumCyan hover:to-quantumCyan hover:text-black border border-quantumCyan/30 hover:border-transparent text-quantumCyan text-sm font-semibold transition-all duration-300 =">
-                    Explore Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- Deep Vision Section -->
-    <section class="max-w-5xl mx-auto px-6 py-12 mb-16">
-        <div class="glass-panel rounded-2xl p-8 md:p-12 relative overflow-hidden">
-            <div class="absolute -right-32 -bottom-32 w-96 h-96 bg-gradient-to-tr from-saffron/10 to-quantumCyan/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <h3 class="font-cinzel text-2xl md:text-3xl font-bold text-white tracking-wider mb-6 text-center">
-                A STRATEGIC COGNITIVE BRIDGE
-            </h3>
-            
-            <div class="space-y-6 text-gray-400 text-sm md:text-base leading-relaxed">
-                <blockquote class="border-l-4 border-saffron pl-4 italic text-gray-300">
-                    "These repositories serve as a Living Library. They do not just archive the past; they 'decolonize' knowledge by applying indigenous Indian frameworks to global problems like sustainability, ethics, and law."
-                </blockquote>
-                <p>
-                    The overarching contribution of this body of work lies in its exceptional <span class="text-white font-semibold">cross-domain utility</span>. By integrating an advanced technological mindset with a deep rhetorical capability and structural expertise, these frameworks allow the ancient truths of Bharat to emerge as modern templates.
-                </p>
-                <p>
-                    For the <strong>Central Government of India</strong>, this ecosystem serves as a deep intellectual asset. As India shapes the multi-polar world order, these frameworks provide structured, indigenous ideological architectures that can reinforce policy initiatives like <em>National Education Policy (NEP)</em>, <em>Viksit Bharat</em>, and international soft-power narrative building.
-                </p>
+    <div class="manifesto-strip">
+        <div class="manifesto-track">
+            <div class="manifesto-item">Sanatana Samyata — The Complete Dharma Defense Manual</div>
+            <div class="manifesto-item">Bharat Ekta Mission — Voluntary Caste Transcendence</div>
+            <div class="manifesto-item">The Karma Index — Measuring Ethical Causality in Governance</div>
+            <div class="manifesto-item">EchoShield Nexus — AI-Powered Predictive Security</div>
+            <div class="manifesto-item">Dharma-Driven AI Ethics — Vedic Principles in Machine Learning</div>
+            <div class="manifesto-item">Sonar Bangla 2.0 — Bengal-Bharat Synergy</div>
+            <div class="manifesto-item">Sanatana Vidya Kendra — The People's Living Library</div>
+            <div class="manifesto-item">Roots & Wings — A Ready Reckoner for Young Minds</div>
+            <div class="manifesto-item">Sanatana Samyata — The Complete Dharma Defense Manual</div>
+            <div class="manifesto-item">Bharat Ekta Mission — Voluntary Caste Transcendence</div>
+            <div class="manifesto-item">The Karma Index — Measuring Ethical Causality in Governance</div>
+            <div class="manifesto-item">EchoShield Nexus — AI-Powered Predictive Security</div>
+            <div class="manifesto-item">Dharma-Driven AI Ethics — Vedic Principles in Machine Learning</div>
+            <div class="manifesto-item">Sonar Bangla 2.0 — Bengal-Bharat Synergy</div>
+            <div class="manifesto-item">Sanatana Vidya Kendra — The People's Living Library</div>
+            <div class="manifesto-item">Roots & Wings — A Ready Reckoner for Young Minds</div>
+        </div>
+    </div>
+
+    <section class="domains" id="domains">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">The Helix Ecosystem</div>
+            <h2 class="section-title">Five Pillars of Civilizational Renewal</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Interconnected platforms and frameworks bridging ancient Sanatana wisdom with modern governance, technology, and cultural defense.</p>
+        </div>
+        <div class="domains-grid">
+            <a href="https://bengal-bharat-synergy.netlify.app/" target="_blank" class="domain-card reveal" data-status="live">
+                <div class="domain-number">01</div>
+                <span class="domain-icon">⚡</span>
+                <h3 class="domain-title">Bengal-Bharat Synergy</h3>
+                <p class="domain-desc">Civilizational Intelligence Architecture for Bharat 2047. Sonar Bangla 2.0 economic renaissance, trans-Bharat synchronization, and the Kolkata Intellect-Hub neural map.</p>
+                <div class="domain-meta"><span class="dot"></span> LIVE — 99.98% SYNC</div>
+            </a>
+            <a href="https://sanatan-vidya-kendra.netlify.app/" target="_blank" class="domain-card reveal" data-status="live">
+                <div class="domain-number">02</div>
+                <span class="domain-icon">📚</span>
+                <h3 class="domain-title">Sanatan Vidya Kendra</h3>
+                <p class="domain-desc">The AI-Augmented Digital Library of Sanatana Dharma. A genius, accessible ecosystem for common people — not just scholars — seeking clear, practical answers on Dharma in daily life.</p>
+                <div class="domain-meta"><span class="dot"></span> LIVE — 66+ Papers Integrated</div>
+            </a>
+            <a href="https://bengal-renaissance.netlify.app/" target="_blank" class="domain-card reveal" data-status="live">
+                <div class="domain-number">03</div>
+                <span class="domain-icon">🏛️</span>
+                <h3 class="domain-title">Bengal Renaissance</h3>
+                <p class="domain-desc">Real-time civilizational intelligence overlay tracking PM-Kisan beneficiaries, Ayushman Bharat coverage, Rajadharma metrics, and Sanatana Samyata defense protocols across West Bengal.</p>
+                <div class="domain-meta"><span class="dot"></span> LIVE — Helix Deployment Active</div>
+            </a>
+            <a href="https://helixoriginator.github.io/concept-architect/" target="_blank" class="domain-card reveal" data-status="live">
+                <div class="domain-number">04</div>
+                <span class="domain-icon">🏗️</span>
+                <h3 class="domain-title">Concept Architect</h3>
+                <p class="domain-desc">15+ world-first frameworks at the intersection of civilizational governance, constitutional law, AI & democracy, Sanatan economics, and digital scholarship — shaping the intellectual architecture for a resurgent India.</p>
+                <div class="domain-meta"><span class="dot"></span> LIVE — 256 DOI Publications</div>
+            </a>
+            <a href="https://helixoriginator.github.io/kallol-ready-reckoner/" target="_blank" class="domain-card reveal" data-status="live">
+                <div class="domain-number">05</div>
+                <span class="domain-icon">📖</span>
+                <h3 class="domain-title">Ready Reckoners</h3>
+                <p class="domain-desc">Evidence-based systematic frameworks for rapid understanding of complex subjects in culture, law, policy, governance, and society. From Sanatana Samyata to EchoShield Nexus — 19+ reckoners and counting.</p>
+                <div class="domain-meta"><span class="dot"></span> LIVE — 19+ Frameworks</div>
+            </a>
+        </div>
+    </section>
+
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-inner">
+            <div class="philosophy-visual reveal">
+                <div class="orbit-ring"><div class="orbit-node" style="top:0;left:50%;transform:translate(-50%,-50%)"></div></div>
+                <div class="orbit-ring"><div class="orbit-node" style="top:50%;right:0;transform:translate(50%,-50%)"></div></div>
+                <div class="orbit-ring"><div class="orbit-node" style="bottom:0;left:50%;transform:translate(-50%,50%)"></div></div>
+                <div class="center-symbol">ॐ</div>
+            </div>
+            <div class="philosophy-content reveal">
+                <div class="section-eyebrow">Core Philosophy</div>
+                <h2>Sanatana Dharma as a Living, Breathing Framework for Modern Civilization</h2>
+                <p>This is not nostalgia. It is architecture. Sanatana Dharma offers a sustainable model for addressing global challenges — demographic decline, cultural erosion, radicalism, and ideological extremism — through principles that have endured millennia.</p>
+                <p>The Mahakumbh Mela, attracting 450 million pilgrims across 45 days, stands as the world's most efficiently organized human gathering — a case study in self-regulated discipline, spiritual consciousness, and large-scale harmony that Harvard Business Review called "the most efficiently organized human gathering in history."</p>
+                <ul class="principle-list">
+                    <li><span class="principle-sanskrit">तत्त्वमसि</span><span class="principle-meaning">Thou Art That — The divine essence is identical in all beings. No being is inherently superior or inferior.</span></li>
+                    <li><span class="principle-sanskrit">वसुधैव कुटुम्बकम्</span><span class="principle-meaning">The World is One Family — Transcending all artificial divisions including caste, race, and nationality.</span></li>
+                    <li><span class="principle-sanskrit">सर्वं खल्विदं ब्रह्म</span><span class="principle-meaning">All this is indeed Brahman — All existence is one divine consciousness. Discrimination becomes philosophically impossible.</span></li>
+                    <li><span class="principle-sanskrit">कर्मण्येवाधिकारस्ते</span><span class="principle-meaning">You have the right to action alone — Merit-based spiritual system where present actions shape destiny, not birth.</span></li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="mt-auto border-t border-gray-900 bg-black/80 py-12 text-center text-xs text-gray-500 tracking-wider">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <span class="text-gradient-saffron font-bold text-sm tracking-widest font-cinzel">HELIX SANATANA ECOSYSTEM</span>
-                <span class="text-gray-700">|</span>
-                <span>Decolonizing Modern Knowledge Systems</span>
+    <div class="stats-strip">
+        <div class="stats-grid">
+            <div class="stat-item reveal"><div class="stat-number">256</div><div class="stat-label">DOI-Linked Publications</div></div>
+            <div class="stat-item reveal"><div class="stat-number">25</div><div class="stat-label">Copyrights Secured</div></div>
+            <div class="stat-item reveal"><div class="stat-number">15+</div><div class="stat-label">World-First Frameworks</div></div>
+            <div class="stat-item reveal"><div class="stat-number">5,000+</div><div class="stat-label">Global Downloads</div></div>
+        </div>
+    </div>
+
+    <section class="reckoners" id="reckoners">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">Knowledge Arsenal</div>
+            <h2 class="section-title">The Ready Reckoner Collection</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Evidence-based reference frameworks for rapid understanding of complex subjects — pioneering a new format in digital scholarship.</p>
+        </div>
+        <div class="reckoners-grid">
+            <div class="reckoner-item reveal"><span class="reckoner-tag featured">Featured</span><h4 class="reckoner-title">Sanatana Samyata</h4><p class="reckoner-desc">The Complete Dharma Defense Manual — world's first comprehensive ready reckoner addressing myths and distortions about Hinduism with scriptural evidence.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag featured">Featured</span><h4 class="reckoner-title">Bharat Ekta Mission</h4><p class="reckoner-desc">India's first integrated framework combining voluntary caste de-identification, economic empowerment, and legal protection against coercive conversions.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Policy</span><h4 class="reckoner-title">The Karma Index</h4><p class="reckoner-desc">Pioneering mathematical model measuring ethical outcomes in government operations by applying ancient wisdom — quantifying governance integrity.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Security</span><h4 class="reckoner-title">EchoShield Nexus</h4><p class="reckoner-desc">AI-powered predictive policing framework for Uttar Pradesh, transforming public safety through data intelligence, accountability, and citizen trust.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Culture</span><h4 class="reckoner-title">Roots & Wings</h4><p class="reckoner-desc">Educational framework integrating ancient Indian wisdom with contemporary values for holistic development of learners aged 10-16.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Culture</span><h4 class="reckoner-title">Debunking Civilizational Myths</h4><p class="reckoner-desc">Addresses 90 myths across India's constitutional jurisprudence, Sanatana Dharma, and historical narratives with evidence-based corrections.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Law</span><h4 class="reckoner-title">Legal Literacy Framework 2024</h4><p class="reckoner-desc">Study of India's transition to BNS, BNSS, and BSA. Built around Shakti, Yukti, and Mukti for actionable legal guidance.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Civic</span><h4 class="reckoner-title">Responsible Citizenship Guide</h4><p class="reckoner-desc">User-friendly quick-reference empowering citizens with practical knowledge of existing laws — inspired by Maha Kumbh's 450 million pilgrims.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Interfaith</span><h4 class="reckoner-title">Tawhid-Vedanta Bridge</h4><p class="reckoner-desc">Explores conceptual parallels and bridges between Islamic Tawhid and Vedantic philosophy for interfaith understanding.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag new">New</span><h4 class="reckoner-title">Ghar Se Shakti</h4><p class="reckoner-desc">Empowering framework recognizing and enhancing the economic and social contributions of homemakers in modern society.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag new">New</span><h4 class="reckoner-title">GREED Stack</h4><p class="reckoner-desc">Innovative economic framework analyzing systemic patterns and providing actionable insights for sustainable development.</p></div>
+            <div class="reckoner-item reveal"><span class="reckoner-tag">Culture</span><h4 class="reckoner-title">Sanatana Darshana</h4><p class="reckoner-desc">Guide presenting Hindu ethics, philosophy, and cosmology through reason, historical references, and scientific parallels for atheists and ex-Muslims.</p></div>
+        </div>
+    </section>
+
+    <section class="sanatana" id="sanatana">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">Eternal Principles</div>
+            <h2 class="section-title">The Eight Pillars of Dharmic Equality</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Core philosophical foundations that establish universal equality within Sanatana Dharma — validated by scripture, history, and lived tradition.</p>
+        </div>
+        <div class="sanatana-grid">
+            <div class="sanatana-card reveal"><div class="card-icon">☸</div><h3>Advaita Vedanta</h3><p>All existence is one divine consciousness. If all beings share the same essential nature, discrimination based on birth becomes philosophically impossible.</p></div>
+            <div class="sanatana-card reveal"><div class="card-icon">⚖</div><h3>Tat Tvam Asi</h3><p>"Thou Art That" — The same divine essence pervades the universe and exists within every being. No being is inherently superior or inferior.</p></div>
+            <div class="sanatana-card reveal"><div class="card-icon">🔥</div><h3>Karma Yoga</h3><p>Every soul accumulates karma through actions, not birth. Spiritual progress depends on righteousness of deeds — present actions shape destiny.</p></div>
+            <div class="sanatana-card reveal"><div class="card-icon">❤</div><h3>Bhakti Yoga</h3><p>Divine love is available to ALL beings. Women, Shudras, and all marginalized groups are explicitly included. Devotion, not birth, determines success.</p></div>
+            <div class="sanatana-card reveal"><div class="card-icon">👁</div><h3>Sama Darshana</h3><p>The enlightened see with equal vision a learned Brahmin, a cow, an elephant, a dog, and a dog-eater. True wisdom reveals equality of all beings.</p></div>
+            <div class="sanatana-card reveal"><div class="card-icon">🌍</div><h3>Vasudhaiva Kutumbakam</h3><p>"The World is One Family" — Transcends all artificial divisions. For the magnanimous, the entire world is one family. Small-minded people create divisions.</p></div>
+        </div>
+    </section>
+
+    <section class="timeline" id="timeline">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">The Journey</div>
+            <h2 class="section-title">From Independent Researcher to Civilizational Architect</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="timeline-inner">
+            <div class="timeline-line"></div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">Foundations</div>
+                <div class="timeline-content">
+                    <h4>The Scholar's Genesis</h4>
+                    <p>Began independent research bridging ancient Indian wisdom with modern governance, constitutional law, and AI ethics. Developed the Helix Thinking Methodology and Kallol Wave Framework.</p>
+                </div>
             </div>
-            <div class="text-gray-400 font-medium border-t md:border-t-0 border-gray-800 pt-4 md:pt-0">
-                Created by <span class="text-gradient-gold font-semibold">Kallol Chakrabarti</span>, Global Independent Researcher.
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2024</div>
+                <div class="timeline-content">
+                    <h4>Sanatana Samyata Published</h4>
+                    <p>Released the world's first comprehensive Dharma Defense Manual — a ready reckoner systematically addressing widespread myths about Hinduism with scriptural evidence and historical proof.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2024</div>
+                <div class="timeline-content">
+                    <h4>The Karma Index & Bharat Ekta</h4>
+                    <p>Introduced pioneering frameworks: The Karma Index for measuring ethical causality in governance, and Bharat Ekta Mission for voluntary caste transcendence anchored in constitutional values.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2025</div>
+                <div class="timeline-content">
+                    <h4>Digital Ecosystem Launch</h4>
+                    <p>Deployed five interconnected platforms: Bengal-Bharat Synergy, Sanatan Vidya Kendra, Bengal Renaissance, Concept Architect, and the Ready Reckoner hub — creating a unified civilizational intelligence network.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">Present</div>
+                <div class="timeline-content">
+                    <h4>256 Publications, 25 Copyrights</h4>
+                    <p>Over 5,000 global downloads. 15+ world-first frameworks spanning AI ethics, governance, constitutional thought, and Sanatana economics. Continuing to build the intellectual architecture for Bharat 2047.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quote-section reveal">
+        <blockquote>
+            Original concepts are the seeds of civilisational renewal. Every independent researcher who dares to think beyond convention contributes a brick to the grand edifice of nation building.
+        </blockquote>
+        <cite>— Kallol Chakrabarti, Helix Originator</cite>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-symbol">ॐ HELIOS</div>
+                    <p>The Civilizational Nexus synthesizing Sanatana Dharma, constitutional thought, AI governance, and independent research for a resurgent India.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Platforms</h4>
+                    <ul>
+                        <li><a href="https://bengal-bharat-synergy.netlify.app/" target="_blank">Bengal-Bharat Synergy</a></li>
+                        <li><a href="https://sanatan-vidya-kendra.netlify.app/" target="_blank">Sanatan Vidya Kendra</a></li>
+                        <li><a href="https://bengal-renaissance.netlify.app/" target="_blank">Bengal Renaissance</a></li>
+                        <li><a href="https://helixoriginator.github.io/concept-architect/" target="_blank">Concept Architect</a></li>
+                        <li><a href="https://helixoriginator.github.io/kallol-ready-reckoner/" target="_blank">Ready Reckoners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Frameworks</h4>
+                    <ul>
+                        <li><a href="#">The Karma Index</a></li>
+                        <li><a href="#">Bharat Ekta Mission</a></li>
+                        <li><a href="#">EchoShield Nexus</a></li>
+                        <li><a href="#">Dharma-Driven AI Ethics</a></li>
+                        <li><a href="#">Vedic Quantum Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><span style="color:var(--text-secondary);font-size:0.85rem;">kallolchitralimagicpen@gmail.com</span></li>
+                        <li><a href="https://orcid.org/0009-0007-4971-8936" target="_blank">ORCID</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Kallol Chakrabarti. All rights reserved. 25 Copyrights. 1 Provisional Patent.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Attribution</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <script>
+        // COSMOS PARTICLE SYSTEM
+        const canvas = document.getElementById('cosmos-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.golden = Math.random() > 0.85;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                if (mouse.x != null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        const force = (150 - distance) / 150;
+                        this.x -= dx * force * 0.02;
+                        this.y -= dy * force * 0.02;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                if (this.golden) {
+                    ctx.fillStyle = `rgba(201, 168, 76, ${this.opacity})`;
+                } else {
+                    ctx.fillStyle = `rgba(160, 154, 142, ${this.opacity * 0.5})`;
+                }
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(window.innerWidth / 8, 150);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function connectParticles() {
+            const maxDistance = 120;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * 0.08;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(201, 168, 76, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            connectParticles();
+            animationId = requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // CUSTOM CURSOR
+        const cursorGlow = document.getElementById('cursorGlow');
+        let cursorX = 0, cursorY = 0;
+        let currentX = 0, currentY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+        });
+
+        function animateCursor() {
+            currentX += (cursorX - currentX) * 0.1;
+            currentY += (cursorY - currentY) * 0.1;
+            cursorGlow.style.left = currentX + 'px';
+            cursorGlow.style.top = currentY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        if ('ontouchstart' in window) {
+            cursorGlow.style.display = 'none';
+        }
+
+        // NAVBAR SCROLL EFFECT
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // SCROLL REVEAL
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // SMOOTH SCROLL FOR NAV LINKS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // PARALLAX EFFECT ON HERO
+        const heroContent = document.querySelector('.hero-content');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * 0.3;
+            if (heroContent && scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${rate}px)`;
+                heroContent.style.opacity = 1 - (scrolled / (window.innerHeight * 0.8));
+            }
+        });
+
+        // RECKONER ITEM STAGGER
+        const reckoners = document.querySelectorAll('.reckoner-item');
+        const reckonerObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }, index * 80);
+                    reckonerObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reckoners.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            item.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            reckonerObserver.observe(item);
+        });
+
+        // STAT COUNTER ANIMATION
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const text = target.textContent;
+                    const numericPart = text.replace(/[^0-9]/g, '');
+                    const suffix = text.replace(/[0-9]/g, '');
+                    const targetNum = parseInt(numericPart);
+                    let current = 0;
+                    const increment = targetNum / 60;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= targetNum) {
+                            target.textContent = text;
+                            clearInterval(timer);
+                        } else {
+                            target.textContent = Math.floor(current) + suffix;
+                        }
+                    }, 30);
+                    statObserver.unobserve(target);
+                }
+            });
+        }, { threshold: 0.5 });
+        statNumbers.forEach(stat => statObserver.observe(stat));
+
+        // MANIFESTO STRIP PAUSE ON HOVER
+        const manifestoTrack = document.querySelector('.manifesto-track');
+        const manifestoStrip = document.querySelector('.manifesto-strip');
+        manifestoStrip.addEventListener('mouseenter', () => {
+            manifestoTrack.style.animationPlayState = 'paused';
+        });
+        manifestoStrip.addEventListener('mouseleave', () => {
+            manifestoTrack.style.animationPlayState = 'running';
+        });
+
+        // PERFORMANCE: PAUSE CANVAS WHEN NOT VISIBLE
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                animate();
+            }
+        });
+
+        // REDUCE MOTION PREFERENCE
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.orbit-ring').forEach(el => { el.style.animation = 'none'; });
+            manifestoTrack.style.animation = 'none';
+        }
+    </script>
 </body>
 </html>
